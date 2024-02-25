@@ -1,0 +1,10 @@
+
+	* After this tcpsp is tested OK, we will consider to add
+	sys_tcpsplice() into sys_socketcall(), then it would be easier to
+	use tcpsplice() in the user space.
+
+	* Add tcp option handling
+
+	* Add icmp handling
+
+	* Added incremental checksum update

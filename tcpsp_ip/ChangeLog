@@ -1,0 +1,51 @@
+TCP Splicing for Linux - Version 0.0.5 - December 1, 2002
+
+2003-12-01  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_conn.c: code tidy up.
+
+2003-11-13  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_conn.c (tcpsp_conn_flush): fixed to disable the bottom
+	half and hold lock while deleting the timer. Thank Runhua Yang
+	<yangrunhua@njupt.edu.cn> for the suggestion and patch.
+
+
+TCP Splicing for Linux - Version 0.0.4 - November 11, 2002
+
+2003-11-11  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_core.c (tcp_fast_parse_timestamps): Tharatorn Bidaya
+	<sorn@sfsu.edu> added the full-path parse for timestamps if the
+	fast parse doesn't work.
+
+
+TCP Splicing for Linux - Version 0.0.3 - October 27, 2002
+
+2003-10-27  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_ctl.c (sockfd_lookup): commented out, because kernel
+	2.4.22 has already exported this function.
+
+	* tcpsp_conn.c (tcpsp_conn_flush): fixed to flush list entries
+	correctly. Thank Runhua Yang <yangrunhua@njupt.edu.cn>.
+
+
+TCP Splicing for Linux - Version 0.0.2 - May 20, 2002
+
+2002-05-20  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_core.c (tcp_fast_parse_timestamps): added to simply parse
+	the timestamp location.
+
+	* tcpsp_core.c (tcpsp_in): changed to adapt the timestamp option
+	if it is presented.
+
+2002-05-19  Wensong Zhang  <wensong@linux-vs.org>
+
+	* tcpsp_core.c (tcpsp_in): changed to reset two sockets after the
+	first data ack is received from the server.
+
+2002-04-18  Wensong Zhang  <wensong@linux-vs.org>
+
+	* initial release

@@ -1,0 +1,83 @@
+
+TCPSP
+
+
+What is it?
+-----------
+
+It implements TCP splicing for the Linux kernel. It can be used to
+speed up layer-7 switching, web proxy and application firewall running
+in the user space.
+
+It is also a small software component of the Linux Virtual Server
+project.
+
+
+The Latest Version
+------------------
+
+Details of the latest version can be found on the Linux Virtual Server
+project page under http://www.linuxvirtualserver.org/.
+
+
+COPYRIGHT
+---------
+
+Copyright (c) 2002 Wensong Zhang. It is released under GNU GPL
+(General Public License). Please see the file called COPYING.
+
+
+SETUP
+-----
+
+TCPSP currently requires that your system is running the Linux kernel
+2.4.x.
+
+To build and insert the ipvs modules, the commands can be as follows:
+	# build the module
+	cd <path-name>/tcpsp
+	make
+
+	# insmod the module
+	su
+	make install
+
+	# set the debugging level
+	echo 2 > /proc/sys/net/tcpsp/debug_level
+	
+	# list the splicing connections
+	cat /proc/net/tcpsp_conn
+
+	# run the very simple example shipped in the tar ball :)
+	make -C example
+	example/forwarder	# need to be root to run it currently
+	lynx -dump localhost:8888
+
+	# remove the module
+	rmmod tcpsp
+	
+
+MAILING LIST
+------------
+
+There is a mailing list for the discussion of LVS and its
+applications. It is open to anyone to join. I will announce new
+versions on this list.
+
+To join the mailing list, send mail with the word "subscribe" in the
+Subject field to lvs-users-request@linuxvirtualserver.org.
+
+To send mail to everyone on the list send it to
+lvs-users@linuxvirtualserver.org.
+
+
+FEEDBACK
+--------
+
+Send your comments, bug reports, bug fixes, and ideas to the LVS
+mailing list or me.
+
+Thanks,
+
+Wensong Zhang
+wensong@linux-vs.org

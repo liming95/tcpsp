@@ -1,0 +1,7 @@
+
+level 0		Announement, and transmission error messages
+level 1		Non-fatal error messages
+level 2		Configuration
+level 5		TCPSP connection creation/expiration
+level 7		TCPSP packet handling
+level 12	packet traversal
