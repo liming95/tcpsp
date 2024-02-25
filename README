@@ -1,0 +1,18 @@
+###INTRODUCTION
+This repository is to explore the tcp splicing which is to direct data transmission between different tcp connection in the linux kernel.
+
+The material include the different implementing on tcp splicing for application proxy.
+
+We also collect some material including paper, code and blog for this topic.
+
+###DIRECTORY
+tcpsp_socket : implementing the data transmission in the socket layer.(splice())
+tcpsp_ip     : implementing the data transmission in the ip layer. (netfilter)
+tcpsp_ebpf   : implementing the data transmission by eBPF.
+paper        : incluing some paper and book about this topic.
+
+###OTHER
+
+
+
+
