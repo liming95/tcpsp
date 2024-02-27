@@ -19,9 +19,9 @@
 #include <sys/poll.h>
 #include <netdb.h>
 #include <popt.h>
+#include <time.h>
 
 #include "tcpsp.h"
-
 
 static unsigned long int get_inet_addr(char *server_string);
 
@@ -64,7 +64,9 @@ void start_forwarder(struct sockaddr_in *servaddr)
 	char *buf;
 	int len, n;
 	struct pollfd pollinfo[2];
-
+	struct timespec time1;
+	struct timespec time2;
+	int count = 0;
 
 	len = 8192;
 	buf = malloc(len);
@@ -127,11 +129,12 @@ void start_forwarder(struct sockaddr_in *servaddr)
 
 	while (1) {
 		int i;
-
 		i = poll(pollinfo, 2, 1000);
 
+		//printf("poll..............\n");
 		if (i > 0) {
 			if (pollinfo[0].revents & POLLIN) {
+				clock_gettime(CLOCK_MONOTONIC_RAW, &time1);
 				n = read(fd1, buf, len);
 				if (n > 0) {
 					//printf("read %d bytes from sock1 "
@@ -140,17 +143,25 @@ void start_forwarder(struct sockaddr_in *servaddr)
 				}
 				else if (n == 0)
 					break;
+				clock_gettime(CLOCK_MONOTONIC_RAW, &time2);
 			}
 
 			if (pollinfo[1].revents & POLLIN) {
+				clock_gettime(CLOCK_MONOTONIC_RAW, &time1);
 				n = read(fd2, buf, len);
 				if (n > 0) {
-					//printf("read %d bytes from sock2 "
-					//       "and write to sock1\n", n);
+				//	printf("read %d bytes from sock2 "
+				//	       "and write to sock1\n", n);
 					write(fd1, buf, n);
 				} else if (n == 0)
 					break;
+				clock_gettime(CLOCK_MONOTONIC_RAW, &time2);
 			}
+		}
+		count++;
+
+		if (count % 10 == 0) {
+			printf("time internal: %ldus \n", (time2.tv_sec-time1.tv_sec) * 1000000 + (time2.tv_nsec-time1.tv_nsec)/1000);
 		}
 	}
 

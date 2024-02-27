@@ -5,7 +5,8 @@ INCLUDE = -I.. -I.
 LIBS	= -lpopt
 
 forwarder:	forwarder.c
-		$(CC) $(CFLAGS) $(INCLUDE)  -o $@ $^ $(LIBS)
+		$(shell if [ ! -d ./output ]; then mkdir ./output; fi)
+		$(CC) $(CFLAGS) $(INCLUDE)  -o output/$@ $^ $(LIBS)
 
 clean:
 		rm -f forwarder *.o *~ *.orig

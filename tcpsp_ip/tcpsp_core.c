@@ -35,6 +35,7 @@
 
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
+#include <linux/timex.h>
 
 #include "tcpsp.h"
 //#include <net/tcpsp.h>
@@ -153,7 +154,11 @@ static unsigned int tcpsp_in(void *priv,
 	__u32 seq, ack_seq;
 	__u32 *ts;
 	int rc;
-
+	
+	struct timespec64 ts_start, ts_end;
+	struct timespec64 ts_delta;
+	
+	ktime_get_boottime_ts64(&ts_start);
 	/* ICMP handling will be considered later */
 	/*	if (iph->protocol == IPPROTO_ICMP) */
 	/*		return tcpsp_in_icmp(skb_p); */
@@ -308,6 +313,11 @@ static unsigned int tcpsp_in(void *priv,
 		rc = NF_ACCEPT;
 
 	tcpsp_conn_put(cp);
+	ktime_get_boottime_ts64(&ts_end);
+
+	ts_delta = timespec64_sub(ts_end, ts_start);
+
+	printk(KERN_DEBUG"TCPSP: time consumed: %lld (us)\n", timespec64_to_ns(&ts_delta) / 1000);
 	return NF_STOLEN;
 }
 

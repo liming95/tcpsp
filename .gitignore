@@ -1,0 +1,13 @@
+#object file
+*.o
+*.ko
+
+#output directory
+./tcpsp/**/output
+# kernel module compile results
+*.cmd
+*.mod*
+modules.order
+Module.symvers
+*.o.d
+
