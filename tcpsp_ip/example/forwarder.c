@@ -138,7 +138,7 @@ void start_forwarder(struct sockaddr_in *servaddr)
 				n = read(fd1, buf, len);
 				if (n > 0) {
 					//printf("read %d bytes from sock1 "
-					//       "and write to sock2\n", n);
+					//       "and write to sock2 %s\n", n, buf);
 					write(fd2, buf, n);
 				}
 				else if (n == 0)
